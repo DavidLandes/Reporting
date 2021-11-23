@@ -43,6 +43,11 @@ namespace Reporting
             HeaderText title = new HeaderText("Bowman and Landes Turkeys Inc.", 1);
             Text address = new Text("6490 Ross Rd. New Carlisle, OH 45344");
             Text phone = new Text("(937) 845-9466");
+            phone.AddAttribute("style", "background-color: pink;");
+            phone.AddAttribute("style", "border-bottom: 2px solid black;");
+            phone.AddAttribute("style", "border-bottom: 12px solid red;");
+            phone.AddAttribute("style", "color: blue;");
+            phone.AddAttribute("style", "color: blue;");
 
             Row row = new Row(title, title);
             Row row2 = new Row(address);
@@ -54,7 +59,6 @@ namespace Reporting
 
             string OUT_FILE = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\test-report.html";
             File.WriteAllText(OUT_FILE, html.ToString());
-
         }
     }
 }
