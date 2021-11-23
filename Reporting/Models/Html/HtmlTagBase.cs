@@ -12,11 +12,7 @@ namespace Reporting.Models.Html
 
         protected string _tag = "div";
         protected Dictionary<string, string> _attributes = new Dictionary<string, string>();
-        protected string _content = "";
-        protected List<Tag> _children = new List<Tag>();
-        // Useful for pretty formatting. Using a tree structure, we can edit this property to get the proper nested indentation for all elements.
-        public int _treeDepth = 0;
-
+        protected List<object> _content = new List<object>();
 
         #endregion Fields
 
@@ -38,13 +34,12 @@ namespace Reporting.Models.Html
         }
 
         /// <summary>
-        /// Add another tag to the content of this element. Also keep track of the child tags separately by placing them into a list.
+        /// Add another tag to the content of this element. 
         /// </summary>
         /// <param name="content"></param>
-        public void AddContent(Tag content)
+        public void AddContent(HtmlTagBase content)
         {
-            _children.Add(content);
-            _content += content.ToString();
+            _content.Add(content);
         }
 
         /// <summary>
@@ -53,13 +48,13 @@ namespace Reporting.Models.Html
         /// <param name="content"></param>
         public void AddContent(string content)
         {
-            _content += content;
+            _content.Add(content);
         }
 
         /// <summary>
         /// Parse the attributes of this tag into a html string.
         /// </summary>
-        protected string ParseAttributes()
+        private string ParseAttributes()
         {
             string res = "";
             foreach (string attr in _attributes.Keys)
@@ -76,26 +71,12 @@ namespace Reporting.Models.Html
         }
 
         /// <summary>
-        /// Parse the children of this tag into a html string.
-        /// </summary>
-        protected string ParseChildren()
-        {
-            string res = "";
-            foreach (Tag child in _children)
-            {
-                res += child.ToString();
-            }
-            return res;
-        }
-
-        /// <summary>
         /// Generate tabs for indentation.
         /// </summary>
-        /// <param name="isContent"></param>
-        /// <returns></returns>
-        protected string GetIndentLevel(bool isContent = false)
+        /// <param name="depth">The level of depth in the html tree</param>
+        /// <returns>The string indentation for this depth level in the html tree</returns>
+        private string GetIndent(int depth)
         {
-            int depth = isContent ? _treeDepth + 1 : _treeDepth;
             string indent = "";
 
             for (int i = 0; i < depth; i++)
@@ -106,15 +87,46 @@ namespace Reporting.Models.Html
         }
 
         /// <summary>
-        /// Parse this tag into html.
+        /// Recursively parse this tag into an html tree.
         /// </summary>
+        /// <param name="depth">The level of depth in the html tree</param>
+        /// <param name="root">The html tag at the base of this tree</param>
+        /// <returns>The string version of this tag's html tree</returns>
+        private string ParseHtml(HtmlTagBase root, int depth)
+        {
+            string attributes = root.ParseAttributes();
+            string indent = GetIndent(depth);
+            string contIndent = GetIndent(depth+1);
+
+            string contentHtml = "";
+            // Parse this tag's content.
+            foreach (object child in root._content)
+            {
+                // This child is another Html tag. Parse it into a string..
+                if (child is HtmlTagBase)
+                {
+                    contentHtml += $"\n{ParseHtml((child as HtmlTagBase), depth+1)}";
+                }
+                // This child is just a string. Add it to the content.
+                else if (child is String)
+                {
+                    contentHtml += $"\n{contIndent}{child}";
+                }
+            }
+
+            // Return the parsed html tag & its content.
+            return $"{indent}<{root._tag}{attributes}>" +
+                       contentHtml + "\n" +
+                   $"{indent}</{root._tag}>";
+        }
+
+        /// <summary>
+        /// Represents this html tag as a string.
+        /// </summary>
+        /// <returns>This tag as an html tree</returns>
         public override string ToString()
         {
-            string attributes = ParseAttributes();
-            string indent = GetIndentLevel();
-            string contIndent = GetIndentLevel(true);
-
-            return $"{indent}<{_tag}{attributes}>\n{contIndent}{_content}\n{indent}</{_tag}>\n";
+            return ParseHtml(this, 0);
         }
 
         /// <summary>
