@@ -11,7 +11,7 @@ namespace Reporting.Models.Html
         #region Fields
 
         private int _columnCount;
-        public string[] _rowHeaders;
+        private string[] _rowHeaders;
         private string _width = "90%";
         private string _rowHeight = "40px";
 
@@ -48,7 +48,7 @@ namespace Reporting.Models.Html
                 row.AddContent(data);
             }
             // Add the row tag to the table.
-            AddContent(row);
+            _content.Add(row);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Reporting.Models.Html
                 row.AddContent(data);
             }
             // Add the row tag to the table.
-            AddContent(row);
+            _content.Add(row);
         }
 
         #endregion Methods

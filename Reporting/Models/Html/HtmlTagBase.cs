@@ -23,7 +23,7 @@ namespace Reporting.Models.Html
         /// </summary>
         /// <param name="attribute"></param>
         /// <param name="value"></param>
-        public void AddAttribute(string attribute, string value)
+        virtual public void AddAttribute(string attribute, string value)
         {
             if (_attributes.ContainsKey(attribute))
             {
@@ -31,24 +31,6 @@ namespace Reporting.Models.Html
                 return;
             }
             _attributes.Add(attribute, value);
-        }
-
-        /// <summary>
-        /// Add another tag to the content of this element. 
-        /// </summary>
-        /// <param name="content"></param>
-        public void AddContent(HtmlTagBase content)
-        {
-            _content.Add(content);
-        }
-
-        /// <summary>
-        /// Add text to the content of this element.
-        /// </summary>
-        /// <param name="content"></param>
-        public void AddContent(string content)
-        {
-            _content.Add(content);
         }
 
         /// <summary>
