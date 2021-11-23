@@ -18,6 +18,12 @@ namespace Reporting.Models.ReportComponents
 
         public HeaderText(string text, int headingSize=1)
         {
+            if (headingSize < 1 || headingSize > 6)
+            {
+                Console.WriteLine($"HeaderText size \'{headingSize}\' invalid. Must be a valid html heading size (1-6). Defaulting to <h1>");
+                headingSize = 1;
+            }
+
             _tag = $"h{headingSize}";
             _content.Add(text);
         }
