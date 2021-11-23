@@ -1,5 +1,6 @@
 ﻿using Reporting.Models;
 using Reporting.Models.Html;
+using Reporting.Models.ReportComponents;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

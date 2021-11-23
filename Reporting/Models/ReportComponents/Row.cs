@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Reporting.Models.Html;
 
-namespace Reporting.Models.Html
+namespace Reporting.Models.ReportComponents
 {
     class Row : HtmlTagBase
     {
@@ -37,6 +38,7 @@ namespace Reporting.Models.Html
             foreach (HtmlTagBase tag in items)
             {
                 Tag rowData = new Tag("td");
+                rowData.AddAttribute("style", "text-align: center;");
                 rowData.AddContent(tag);
                 rowContainer.AddContent(rowData);
             }

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Reporting.Models.Html;
 
-namespace Reporting.Models.Html
+namespace Reporting.Models.ReportComponents
 {
     class Table : HtmlTagBase
     {
