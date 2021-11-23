@@ -12,5 +12,18 @@ namespace Reporting.Models.Html
         {
             _tag = "header";
         }
+
+        #region Methods
+
+        /// <summary>
+        /// Add another tag to the content of this element. 
+        /// </summary>
+        /// <param name="content"></param>
+        public void AddContent(HtmlTagBase content)
+        {
+            _content.Add(content);
+        }
+
+        #endregion Methods
     }
 }

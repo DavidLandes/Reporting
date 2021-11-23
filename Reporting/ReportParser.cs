@@ -26,7 +26,6 @@ namespace Reporting
 
         ReportParser()
         {
-
         }
 
         #endregion Constructors
