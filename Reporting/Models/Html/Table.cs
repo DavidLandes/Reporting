@@ -19,7 +19,7 @@ namespace Reporting.Models.Html
 
         #region Constructors
 
-        public Table(string[] headers)
+        public Table(params string[] headers)
         {
             _columnCount = headers.Length;
             _rowHeaders = headers;
@@ -55,7 +55,7 @@ namespace Reporting.Models.Html
         /// Insert a row of values into the table.
         /// </summary>
         /// <param name="values">The list of values must have the same number of rows as the table</param>
-        public void InsertRow(string[] values)
+        public void InsertRow(params string[] values)
         {
             if (values.Length != _columnCount)
             {
