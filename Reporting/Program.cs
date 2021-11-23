@@ -44,10 +44,10 @@ namespace Reporting
             Text address = new Text("6490 Ross Rd. New Carlisle, OH 45344");
             Text phone = new Text("(937) 845-9466");
 
-            Row row = new Row("90%", title, title);
-            Row row2 = new Row("90%", address);
-            Row row3 = new Row("90%", phone);
-            Column headColumn = new Column("90%", row, row2, row3);
+            Row row = new Row(title, title);
+            Row row2 = new Row(address);
+            Row row3 = new Row(phone);
+            Column headColumn = new Column(row, row2, row3);
 
             html.AddContent(headColumn);
             html.AddContent(table);

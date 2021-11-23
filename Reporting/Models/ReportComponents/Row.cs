@@ -20,12 +20,11 @@ namespace Reporting.Models.ReportComponents
         /// <summary>
         /// A row of html elements.
         /// </summary>
-        /// <param name="width">Width of the row using html sizing format</param>
         /// <param name="items">Html elements to put inside the row</param>
-        public Row(string width="90%", params HtmlTagBase[] items)
+        public Row(params HtmlTagBase[] items)
         {
             _tag = "table";
-            _width = width;
+            _width = "100%";
 
             // Set the table width & center it horizontally.
             AddAttribute("style", $"width: {_width}; margin: 0 auto;");
