@@ -40,14 +40,16 @@ namespace Reporting
             table.InsertRow("615", "15.84", "2");
             table.InsertRow("615", "15.84", "2");
 
-            HeaderText h1 = new HeaderText("Header 1", 1);
-            HeaderText h2 = new HeaderText("Header 2", 2);
-            Row row = new Row("90%", h1, h2);
-            Row row2 = new Row("90%", h1, h2, row);
+            HeaderText title = new HeaderText("Bowman and Landes Turkeys Inc.", 1);
+            Text address = new Text("6490 Ross Rd. New Carlisle, OH 45344");
+            Text phone = new Text("(937) 845-9466");
+            Row row = new Row("90%", title);
+            Row row2 = new Row("90%", address);
+            Row row3 = new Row("90%", phone);
 
-            html.AddContent(h1);
             html.AddContent(row);
             html.AddContent(row2);
+            html.AddContent(row3);
             html.AddContent(table);
 
             string OUT_FILE = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\test-report.html";
