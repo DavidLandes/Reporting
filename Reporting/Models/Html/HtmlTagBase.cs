@@ -30,7 +30,7 @@ namespace Reporting.Models.Html
         {
             if (_attributes.ContainsKey(attribute))
             {
-                // Allow new style values to be appended. 
+                // Allow new style values to be appended to an existing style. 
                 if (attribute == "style")
                 {
                     string currentStyle = "";
@@ -39,7 +39,7 @@ namespace Reporting.Models.Html
                     // There are no current style properties, so just add the new ones in.
                     if (currentStyle == string.Empty && value != string.Empty)
                     {
-                        // Update the new value to the current style.
+                        // Remove attribute to make room for updated version.
                         _attributes.Remove("style");
                     }
                     else
@@ -59,7 +59,7 @@ namespace Reporting.Models.Html
         }
 
         /// <summary>
-        /// Adds new HTML style properties to the current style attribute.
+        /// Adds new HTML style properties to the current style attribute if they are not duplicates.
         /// </summary>
         /// <param name="currentStyles"></param>
         /// <param name="newStyles"></param>
