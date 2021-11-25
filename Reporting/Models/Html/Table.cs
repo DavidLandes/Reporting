@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Reporting.Models.Html;
 
-namespace Reporting.Models.ReportComponents
+namespace Reporting.Models.Html
 {
     class Table : HtmlTagBase
     {
