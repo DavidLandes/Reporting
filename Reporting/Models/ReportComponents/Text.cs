@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Reporting.Models.Html;
 
-namespace Reporting.Models.Html
+namespace Reporting.Models.ReportComponents
 {
-    class Text : HtmlTagBase
+    class Text : ReportComponent
     {
         #region Fields
 
@@ -18,8 +18,8 @@ namespace Reporting.Models.Html
 
         public Text(string text)
         {
-            _tag = "p";
-            _content.Add(text);
+            Html = new Tag("p");
+            Html.AddContent(text);
         }
 
         #endregion Constructors

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Reporting.Models.Html;
 
-namespace Reporting.Models.Html
+namespace Reporting.Models.ReportComponents
 {
-    class Table : HtmlTagBase
+    class Table : ReportComponent
     {
         #region Fields
 
@@ -24,9 +24,9 @@ namespace Reporting.Models.Html
         {
             _columnCount = headers.Length;
             _rowHeaders = headers;
-            _tag = "table";
+            Html = new Tag("table");
 
-            AddAttribute("style", $"border-collapse: collapse; width: {_width}; margin: 0 auto;");
+            Html.AddAttribute("style", $"border-collapse: collapse; width: {_width};");
             InsertHeaderRow();
         }
 
@@ -49,7 +49,7 @@ namespace Reporting.Models.Html
                 row.AddContent(data);
             }
             // Add the row tag to the table.
-            _content.Add(row);
+            Html.AddContent(row);
         }
 
         /// <summary>
@@ -75,8 +75,9 @@ namespace Reporting.Models.Html
                 row.AddContent(data);
             }
             // Add the row tag to the table.
-            _content.Add(row);
+            Html.AddContent(row);
         }
+
 
         #endregion Methods
     }

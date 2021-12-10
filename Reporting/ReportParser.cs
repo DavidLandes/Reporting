@@ -11,9 +11,7 @@ namespace Reporting
     {
         #region Fields
 
-        private HeaderSection _header;
-        private BodySection _body;
-        private FooterSection _footer;
+
 
         #endregion Fields
 

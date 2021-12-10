@@ -19,6 +19,11 @@ namespace Reporting.Models.Html
 
         #endregion Fields
 
+        #region Constructors
+
+
+        #endregion Constructors
+
         #region Methods
 
         /// <summary>

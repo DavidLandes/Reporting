@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Reporting.Models.Html;
 
-namespace Reporting.Models.Html
+namespace Reporting.Models.ReportComponents
 {
-    class Column : HtmlTagBase
+    class Column : ReportComponent
     {
         #region Fields
 
@@ -21,16 +21,16 @@ namespace Reporting.Models.Html
         /// A column of html elements.
         /// </summary>
         /// <param name="items">Html elements to put inside the column</param>
-        public Column(params HtmlTagBase[] items)
+        public Column(params ReportComponent[] items)
         {
-            _tag = "table";
+            Html = new Tag("table");
             _width = "100%";
 
             // Set the table width & center it horizontally.
-            AddAttribute("style", $"width: {_width}; margin: 0 auto;");
+            Html.AddAttribute("style", $"width: {_width}; margin: 0 auto;");
 
             // Add data into the column by creating rows and stacking them on top of each other.
-            foreach (HtmlTagBase tag in items)
+            foreach (ReportComponent component in items)
             {
                 // Create the html row container.
                 Tag rowContainer = new Tag("tr");
@@ -38,11 +38,11 @@ namespace Reporting.Models.Html
 
                 Tag rowData = new Tag("td");
                 rowData.AddAttribute("style", "text-align: center;");
-                rowData.AddContent(tag);
+                rowData.AddContent(component.Html);
                 rowContainer.AddContent(rowData);
 
                 // Add the row to the table.
-                _content.Add(rowContainer);
+                Html.AddContent(rowContainer);
             }
         }
 

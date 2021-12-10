@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Reporting.Models.Html;
 
-namespace Reporting.Models.Html
+namespace Reporting.Models.ReportComponents
 {
-    class HeaderText : HtmlTagBase
+    class HeadingText : ReportComponent
     {
         #region Fields
 
@@ -16,7 +16,7 @@ namespace Reporting.Models.Html
 
         #region Constructors
 
-        public HeaderText(string text, int headingSize=1)
+        public HeadingText(string text, int headingSize=1)
         {
             if (headingSize < 1 || headingSize > 6)
             {
@@ -24,8 +24,8 @@ namespace Reporting.Models.Html
                 headingSize = 1;
             }
 
-            _tag = $"h{headingSize}";
-            _content.Add(text);
+            Html = new Tag($"h{headingSize}");
+            Html.AddContent(text);
         }
 
         #endregion Constructors
