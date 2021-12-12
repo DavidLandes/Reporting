@@ -9,7 +9,7 @@ namespace Reporting.Models.Html
     /*  HTML terms:
      *  <tag attribute="property" attribute="property: value;"></tag>
      */
-    class HtmlTagBase
+    public class HtmlTagBase
     {
         #region Fields
 
@@ -21,6 +21,10 @@ namespace Reporting.Models.Html
 
         #region Constructors
 
+        public HtmlTagBase()
+        {
+
+        }
 
         #endregion Constructors
 
@@ -79,6 +83,14 @@ namespace Reporting.Models.Html
         public void AddContent(string content)
         {
             _content.Add(content);
+        }
+
+        /// <summary>
+        /// Clear all contents of this element.
+        /// </summary>
+        public void ClearContent()
+        {
+            _content.Clear();
         }
 
         /// <summary>

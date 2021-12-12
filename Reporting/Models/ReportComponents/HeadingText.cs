@@ -7,7 +7,7 @@ using Reporting.Models.Html;
 
 namespace Reporting.Models.ReportComponents
 {
-    class HeadingText : ReportComponent
+    public class HeadingText : ReportComponent
     {
         #region Fields
 

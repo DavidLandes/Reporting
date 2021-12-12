@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Reporting.Models.ReportComponents
 {
-    class ReportComponent
+    public class ReportComponent
     {
         #region Fields
 
@@ -15,7 +15,10 @@ namespace Reporting.Models.ReportComponents
 
         #endregion Fields
 
+        public ReportComponent()
+        {
 
+        }
 
         #region Methods
 

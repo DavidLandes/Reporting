@@ -7,7 +7,7 @@ using Reporting.Models.Html;
 
 namespace Reporting.Models.ReportComponents
 {
-    class Page : ReportComponent
+    public class Page : ReportComponent
     {
 
         public Page()

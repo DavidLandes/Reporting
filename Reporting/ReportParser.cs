@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using Reporting.Models.Html;
+using Reporting.Models.ReportComponents;
 
 namespace Reporting
 {
@@ -11,7 +15,7 @@ namespace Reporting
     {
         #region Fields
 
-
+        string _reportsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "//";
 
         #endregion Fields
 
@@ -22,7 +26,7 @@ namespace Reporting
 
         #region Constructors
 
-        ReportParser()
+        public ReportParser()
         {
         }
 
@@ -30,9 +34,17 @@ namespace Reporting
 
         #region Methods
 
-        public void Parse(string reportFile)
+        public void Serialize(Page report)
         {
+            XmlSerializer serializer = new XmlSerializer(report.GetType());
+            Debug.WriteLine("Writing directory: " + _reportsDirectory + "test-template.xml");
+            using (FileStream file = File.Create(_reportsDirectory + "test-template.xml"))
+            {
+                serializer.Serialize(file, report);
+            }
 
+            //  File.WriteAllText(_reportsDirectory + "test-template.xml", content);
+            Console.ReadLine();
         }
 
         #endregion Methods

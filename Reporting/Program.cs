@@ -29,6 +29,9 @@ namespace Reporting
 
             report.AddContent(co);
 
+            ReportParser rp = new ReportParser();
+            rp.Serialize(report);
+
 
             string OUT_FILE = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\test-report.html";
             File.WriteAllText(OUT_FILE, report.ToString());

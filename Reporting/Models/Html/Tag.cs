@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace Reporting.Models.Html
 {
-    class Tag : HtmlTagBase
+    public class Tag : HtmlTagBase
     {
         #region Constructors
+        
+        public Tag()
+        {
 
+        }
         public Tag(string name)
         {
             _tag = name;

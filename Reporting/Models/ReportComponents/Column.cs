@@ -7,15 +7,27 @@ using Reporting.Models.Html;
 
 namespace Reporting.Models.ReportComponents
 {
-    class Column : ReportComponent
+    public class Column : ReportComponent
     {
         #region Fields
 
         private string _width;
+        public List<ReportComponent> Children;
 
         #endregion Fields
 
         #region Constructors
+
+        public Column()
+        {
+            _width = "100%";
+            Html = new Tag("table");
+
+            // Set the table width & center it horizontally.
+            Html.AddAttribute("style", $"width: {_width}; margin: 0 auto;");
+
+            Children = new List<ReportComponent>();
+        }
 
         /// <summary>
         /// A column of html elements.
@@ -23,14 +35,23 @@ namespace Reporting.Models.ReportComponents
         /// <param name="items">Html elements to put inside the column</param>
         public Column(params ReportComponent[] items)
         {
-            Html = new Tag("table");
             _width = "100%";
+            Html = new Tag("table");
 
             // Set the table width & center it horizontally.
             Html.AddAttribute("style", $"width: {_width}; margin: 0 auto;");
 
             // Add data into the column by creating rows and stacking them on top of each other.
-            foreach (ReportComponent component in items)
+            Children = new List<ReportComponent>(items);
+            SetHTML();
+        }
+
+        public void SetHTML()
+        {
+            Html.ClearContent();
+
+            // Add data into the column by creating rows and stacking them on top of each other.
+            foreach (ReportComponent component in Children)
             {
                 // Create the html row container.
                 Tag rowContainer = new Tag("tr");
@@ -44,7 +65,7 @@ namespace Reporting.Models.ReportComponents
                 // Add the row to the table.
                 Html.AddContent(rowContainer);
             }
-        }
+        } 
 
         #endregion Constructors
     }
