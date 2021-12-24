@@ -18,15 +18,18 @@ namespace Reporting.Models.ReportComponents
 
         #region Constructors
 
+        /// <summary>
+        /// Default constructor for xml serialization. 
+        /// </summary>
         public Column()
         {
-            _width = "100%";
-            Html = new Tag("table");
+            //_width = "100%";
+            //Html = new Tag("table");
 
-            // Set the table width & center it horizontally.
-            Html.AddAttribute("style", $"width: {_width}; margin: 0 auto;");
+            //// Set the table width & center it horizontally.
+            //Html.AddAttribute("style", $"width: {_width}; margin: 0 auto;");
 
-            Children = new List<ReportComponent>();
+            //Children = new List<ReportComponent>();
         }
 
         /// <summary>

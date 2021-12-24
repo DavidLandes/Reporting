@@ -11,19 +11,29 @@ namespace Reporting.Models.ReportComponents
     {
         #region Fields
 
-        private int _columnCount;
-        private string[] _rowHeaders;
-        private string _width = "90%";
-        private string _rowHeight = "40px";
+        public string[] _columnHeaders;
+        public string _width = "90%";
+        public string _rowHeight = "40px";
 
         #endregion Fields
 
         #region Constructors
 
+        /// <summary>
+        /// Default constructor for xml serialization. 
+        /// </summary>
+        public Table()
+        {
+
+        }
+
+        /// <summary>
+        /// Creates a table of string data.
+        /// </summary>
+        /// <param name="headers">Column headers to be displayed at the start of the table</param>
         public Table(params string[] headers)
         {
-            _columnCount = headers.Length;
-            _rowHeaders = headers;
+            _columnHeaders = headers;
             Html = new Tag("table");
 
             Html.AddAttribute("style", $"border-collapse: collapse; width: {_width};");
@@ -41,7 +51,7 @@ namespace Reporting.Models.ReportComponents
         {
             Tag row = new Tag("tr");
             row.AddAttribute("style", $"height: {_rowHeight}; width: {_width}; border-bottom: 2px solid black;");
-            foreach (string title in _rowHeaders)
+            foreach (string title in _columnHeaders)
             {
                 // Create header tags & add them to the row.
                 Tag data = new Tag("th");
@@ -58,9 +68,9 @@ namespace Reporting.Models.ReportComponents
         /// <param name="values">The list of values must have the same number of rows as the table</param>
         public void InsertRow(params string[] values)
         {
-            if (values.Length != _columnCount)
+            if (values.Length != _columnHeaders.Length)
             {
-                Console.WriteLine($"Error: cannot insert row with {values.Length} columns into a table with {_columnCount} columns.");
+                Console.WriteLine($"Error: cannot insert row with {values.Length} columns into a table with {_columnHeaders.Length} columns.");
                 return;
             }
 

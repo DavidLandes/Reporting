@@ -17,7 +17,7 @@ namespace Reporting.Models.ReportComponents
 
         public ReportComponent()
         {
-
+            Html = new HtmlTagBase();
         }
 
         #region Methods

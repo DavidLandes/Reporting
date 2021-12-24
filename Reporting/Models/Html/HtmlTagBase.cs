@@ -13,9 +13,9 @@ namespace Reporting.Models.Html
     {
         #region Fields
 
-        protected string _tag = "div";
-        protected Dictionary<string, string> _attributes = new Dictionary<string, string>();
-        protected List<object> _content = new List<object>();
+        public string _tag = "div";
+        public Dictionary<string, string> _attributes = new Dictionary<string, string>();
+        public List<object> _content = new List<object>();
 
         #endregion Fields
 

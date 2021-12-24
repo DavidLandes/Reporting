@@ -16,6 +16,14 @@ namespace Reporting.Models.ReportComponents
 
         #region Constructors
 
+        /// <summary>
+        /// Default constructor for xml serialization. 
+        /// </summary>
+        public HeadingText()
+        {
+
+        }
+
         public HeadingText(string text, int headingSize=1)
         {
             if (headingSize < 1 || headingSize > 6)

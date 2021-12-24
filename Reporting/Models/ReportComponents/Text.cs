@@ -16,6 +16,18 @@ namespace Reporting.Models.ReportComponents
 
         #region Constructors
 
+        /// <summary>
+        /// Default constructor for xml serialization.
+        /// </summary>
+        public Text()
+        {
+
+        }
+
+        /// <summary>
+        /// Creates a text box to be shown in a report.
+        /// </summary>
+        /// <param name="text"></param>
         public Text(string text)
         {
             Html = new Tag("p");

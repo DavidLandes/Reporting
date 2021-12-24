@@ -18,6 +18,14 @@ namespace Reporting.Models.ReportComponents
         #region Constructors
 
         /// <summary>
+        /// Default constructor for xml serialization. 
+        /// </summary>
+        public Row()
+        {
+
+        }
+
+        /// <summary>
         /// A row of html elements.
         /// </summary>
         /// <param name="items">elements to put inside the row</param>

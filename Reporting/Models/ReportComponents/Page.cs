@@ -9,10 +9,17 @@ namespace Reporting.Models.ReportComponents
 {
     public class Page : ReportComponent
     {
-
+        /// <summary>
+        /// Default constructor for xml serialization. 
+        /// </summary>
         public Page()
         {
-            Html = new Tag("html");
+
+        }
+
+        public Page(string tag)
+        {
+            Html = new Tag(tag);
         }
 
         public void AddContent(params ReportComponent[] content)
