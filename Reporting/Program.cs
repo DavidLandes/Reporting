@@ -30,11 +30,13 @@ namespace Reporting
             report.AddContent(co);
 
             ReportParser rp = new ReportParser();
-            rp.Serialize(report);
+            rp.SerializePage(report, rp.ReportsDirectory + "test-template.xml");
+            Page p = rp.DeserializePage(rp.ReportsDirectory + "test-template.xml");
 
 
             string OUT_FILE = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\test-report.html";
-            File.WriteAllText(OUT_FILE, report.ToString());
+            Console.WriteLine($"writing {OUT_FILE}");
+            File.WriteAllText(OUT_FILE, p.ToString());
         }
     }
 }

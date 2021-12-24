@@ -15,7 +15,8 @@ namespace Reporting
     {
         #region Fields
 
-        string _reportsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "//";
+        public readonly string ReportsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "//";
+        XmlSerializer _serializer = new XmlSerializer(typeof(Page));
 
         #endregion Fields
 
@@ -23,6 +24,15 @@ namespace Reporting
 
 
         #endregion Properties
+
+        #region Exceptions
+
+        public class SerializeException : Exception
+        {
+            public SerializeException(string message) : base(message) { }
+        }
+
+        #endregion Exceptions
 
         #region Constructors
 
@@ -34,17 +44,45 @@ namespace Reporting
 
         #region Methods
 
-        public void Serialize(Page report)
+        /// <summary>
+        /// Serialize a page into an xml format, then write to the given file.
+        /// </summary>
+        /// <param name="report"></param>
+        public void SerializePage(Page report, string filePath)
         {
-            XmlSerializer serializer = new XmlSerializer(report.GetType());
-            Debug.WriteLine("Writing directory: " + _reportsDirectory + "test-template.xml");
-            using (FileStream file = File.Create(_reportsDirectory + "test-template.xml"))
+            try
             {
-                serializer.Serialize(file, report);
+                using (FileStream file = File.Create(filePath))
+                {
+                    _serializer.Serialize(file, report);
+                }
             }
+            catch(Exception e)
+            {
+                throw new SerializeException("Serialize Error: " + e);
+            }
+        }
 
-            //  File.WriteAllText(_reportsDirectory + "test-template.xml", content);
-            Console.ReadLine();
+        /// <summary>
+        /// Deserialize a xml class from the given file and parse it into a page.
+        /// </summary>
+        /// <returns></returns>
+        public Page? DeserializePage(string filePath)
+        {
+            try
+            {
+                if (!File.Exists(filePath))
+                    return null;
+
+                using (FileStream file = File.OpenRead(filePath))
+                {
+                    return (Page)_serializer.Deserialize(file);
+                }
+            }
+            catch(Exception e)
+            {
+                throw new SerializeException("Serialize Error: " + e);
+            }
         }
 
         #endregion Methods

@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Reporting.Models.Html
 {
     /*  HTML terms:
      *  <tag attribute="property" attribute="property: value;"></tag>
      */
+
+    [XmlInclude(typeof(Tag))]
     public class HtmlTagBase
     {
         #region Fields
 
         public string _tag = "div";
-        public Dictionary<string, string> _attributes = new Dictionary<string, string>();
+        //public Dictionary<string, string> _attributes = new Dictionary<string, string>();
+        public HtmlAttributeList _attributes = new HtmlAttributeList();
         public List<object> _content = new List<object>();
 
         #endregion Fields
@@ -37,13 +41,12 @@ namespace Reporting.Models.Html
         /// <param name="value"></param>
         virtual public void AddAttribute(string attribute, string value)
         {
-            if (_attributes.ContainsKey(attribute))
+            if (_attributes.Contains(attribute))
             {
                 // Allow new style values to be appended to an existing style. 
                 if (attribute == "style")
                 {
-                    string currentStyle = "";
-                    _attributes.TryGetValue(attribute, out currentStyle);
+                    string currentStyle = _attributes.Get(attribute);
 
                     // There are no current style properties, so just add the new ones in.
                     if (currentStyle == string.Empty && value != string.Empty)
@@ -64,7 +67,7 @@ namespace Reporting.Models.Html
                     return;
                 }
             }
-            _attributes.Add(attribute, value);
+            _attributes.Set(attribute, value);
         }
 
         /// <summary>
@@ -126,7 +129,7 @@ namespace Reporting.Models.Html
                 }
                 // Update the new value to the current style.
                 _attributes.Remove("style");
-                _attributes.Add("style", joinedProperties);
+                _attributes.Set("style", joinedProperties);
             }
         }
 
@@ -135,18 +138,7 @@ namespace Reporting.Models.Html
         /// </summary>
         private string ParseAttributes()
         {
-            string res = "";
-            foreach (string attr in _attributes.Keys)
-            {
-                string value = "";
-
-                // Get the value of this attribute. If something goes wrong, just skip & move on.
-                if (!_attributes.TryGetValue(attr, out value))
-                    continue;
-
-                res += $" {attr}=\"{value}\"";
-            }
-            return res;
+            return _attributes.ParseAttributes();
         }
 
         /// <summary>
