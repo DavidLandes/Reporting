@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Reporting.Models.Html;
 
 namespace Reporting.Models.ReportComponents
@@ -11,7 +7,8 @@ namespace Reporting.Models.ReportComponents
     {
         #region Fields
 
-        public string[] _columnHeaders;
+        public List<string> _columnHeaders;
+        public List<List<string>> _data;
         public string _width = "90%";
         public string _rowHeight = "40px";
 
@@ -20,11 +17,12 @@ namespace Reporting.Models.ReportComponents
         #region Constructors
 
         /// <summary>
-        /// Default constructor for xml serialization. 
+        /// Default constructor. 
         /// </summary>
         public Table()
         {
-
+            _columnHeaders = new List<string>();
+            _data = new List<List<string>>();
         }
 
         /// <summary>
@@ -33,11 +31,8 @@ namespace Reporting.Models.ReportComponents
         /// <param name="headers">Column headers to be displayed at the start of the table</param>
         public Table(params string[] headers)
         {
-            _columnHeaders = headers;
-            Html = new Tag("table");
-
-            Html.AddAttribute("style", $"border-collapse: collapse; width: {_width};");
-            InsertHeaderRow();
+            _columnHeaders = new List<string>(headers);
+            _data = new List<List<string>>();
         }
 
         #endregion Constructors
@@ -45,9 +40,61 @@ namespace Reporting.Models.ReportComponents
         #region Methods
 
         /// <summary>
-        /// Add the header row to the table.
+        /// Replace the current header row to a new list of column titles.
         /// </summary>
-        public void InsertHeaderRow()
+        /// <param name="row"></param>
+        public void SetHeaderRow(params string[] row)
+        {
+            _columnHeaders.Clear();
+            _columnHeaders = new List<string>(row);
+        }
+
+        /// <summary>
+        /// Replace the stored data with new list of data rows.
+        /// </summary>
+        /// <param name="newData"></param>
+        public void SetData(List<List<string>> newData)
+        {
+            _data.Clear();
+            _data = new List<List<string>>(newData);
+        }
+
+        /// <summary>
+        /// Insert a row of data into the column.
+        /// </summary>
+        public void InsertRow(int index, params string[] row)
+        {
+            _data.Insert(index, new List<string>(row));
+        }
+
+        /// <summary>
+        /// Add a row of data to the end of the table.
+        /// </summary>
+        /// <param name="row"></param>
+        public void AddRow(params string[] row)
+        {
+            _data.Add(new List<string>(row));
+        }
+        
+        public override Tag ToHtml()
+        {
+            Tag html = new Tag("table");
+            // Style the table.
+            html.AddAttribute("style", $"border-collapse: collapse; width: {_width}; margin: 0 auto;");
+
+            // Add all the content.
+            html.AddContent(GetHeaderHtml());
+            foreach(List<string> row in _data)
+            {
+                html.AddContent(GetRowHtml(row));
+            }
+            return html;
+        }
+
+        /// <summary>
+        /// Generate the html for the header row.
+        /// </summary>
+        private Tag GetHeaderHtml()
         {
             Tag row = new Tag("tr");
             row.AddAttribute("style", $"height: {_rowHeight}; width: {_width}; border-bottom: 2px solid black;");
@@ -58,22 +105,14 @@ namespace Reporting.Models.ReportComponents
                 data.AddContent(title);
                 row.AddContent(data);
             }
-            // Add the row tag to the table.
-            Html.AddContent(row);
+            return row;
         }
 
         /// <summary>
-        /// Insert a row of values into the table.
+        /// Generate html for a table data row.
         /// </summary>
-        /// <param name="values">The list of values must have the same number of rows as the table</param>
-        public void InsertRow(params string[] values)
+        private Tag GetRowHtml(List<string> values)
         {
-            if (values.Length != _columnHeaders.Length)
-            {
-                Console.WriteLine($"Error: cannot insert row with {values.Length} columns into a table with {_columnHeaders.Length} columns.");
-                return;
-            }
-
             Tag row = new Tag("tr");
             row.AddAttribute("style", $"height: {_rowHeight};");
             foreach (string value in values)
@@ -84,8 +123,7 @@ namespace Reporting.Models.ReportComponents
                 data.AddContent(value);
                 row.AddContent(data);
             }
-            // Add the row tag to the table.
-            Html.AddContent(row);
+            return row;
         }
 
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Reporting.Models.Html;
+﻿using Reporting.Models.Html;
 
 namespace Reporting.Models.ReportComponents
 {
@@ -11,17 +6,18 @@ namespace Reporting.Models.ReportComponents
     {
         #region Fields
 
+        public string _text;
 
         #endregion Fields
 
         #region Constructors
 
         /// <summary>
-        /// Default constructor for xml serialization.
+        /// Default constructor.
         /// </summary>
         public Text()
         {
-
+            _text = "";
         }
 
         /// <summary>
@@ -30,14 +26,19 @@ namespace Reporting.Models.ReportComponents
         /// <param name="text"></param>
         public Text(string text)
         {
-            Html = new Tag("p");
-            Html.AddContent(text);
+            _text = text;
         }
 
         #endregion Constructors
 
         #region Methods
 
+        public override Tag ToHtml()
+        {
+            Tag html = new Tag("p");
+            html.AddContent(_text);
+            return html;
+        }
 
         #endregion Methods
     }

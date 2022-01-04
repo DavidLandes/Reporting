@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
-using Reporting.Models.Html;
-using Reporting.Models.ReportComponents;
 
 namespace Reporting
 {
@@ -16,7 +9,7 @@ namespace Reporting
         #region Fields
 
         public readonly string ReportsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "//";
-        XmlSerializer _serializer = new XmlSerializer(typeof(Page));
+        XmlSerializer _serializer = new XmlSerializer(typeof(Report));
 
         #endregion Fields
 
@@ -48,7 +41,7 @@ namespace Reporting
         /// Serialize a page into an xml format, then write to the given file.
         /// </summary>
         /// <param name="report"></param>
-        public void SerializePage(Page report, string filePath)
+        public void SerializePage(Report report, string filePath)
         {
             try
             {
@@ -67,7 +60,7 @@ namespace Reporting
         /// Deserialize a xml class from the given file and parse it into a page.
         /// </summary>
         /// <returns></returns>
-        public Page? DeserializePage(string filePath)
+        public Report? DeserializePage(string filePath)
         {
             try
             {
@@ -76,7 +69,7 @@ namespace Reporting
 
                 using (FileStream file = File.OpenRead(filePath))
                 {
-                    return (Page)_serializer.Deserialize(file);
+                    return (Report)_serializer.Deserialize(file);
                 }
             }
             catch(Exception e)

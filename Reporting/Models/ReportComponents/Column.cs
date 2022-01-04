@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Reporting.Models.Html;
 
 namespace Reporting.Models.ReportComponents
@@ -11,50 +7,51 @@ namespace Reporting.Models.ReportComponents
     {
         #region Fields
 
-        private string _width;
-        public List<ReportComponent> Children;
+        private string _width = "100%";
+        public List<ReportComponent> _children;
 
         #endregion Fields
 
         #region Constructors
 
         /// <summary>
-        /// Default constructor for xml serialization. 
+        /// Default constructor. 
         /// </summary>
         public Column()
         {
-            //_width = "100%";
-            //Html = new Tag("table");
-
-            //// Set the table width & center it horizontally.
-            //Html.AddAttribute("style", $"width: {_width}; margin: 0 auto;");
-
-            //Children = new List<ReportComponent>();
+            _children = new List<ReportComponent>();
         }
 
         /// <summary>
-        /// A column of html elements.
+        /// A column of ReportComponents.
         /// </summary>
-        /// <param name="items">Html elements to put inside the column</param>
+        /// <param name="items"></param>
         public Column(params ReportComponent[] items)
         {
-            _width = "100%";
-            Html = new Tag("table");
-
-            // Set the table width & center it horizontally.
-            Html.AddAttribute("style", $"width: {_width}; margin: 0 auto;");
-
-            // Add data into the column by creating rows and stacking them on top of each other.
-            Children = new List<ReportComponent>(items);
-            SetHTML();
+            _children = new List<ReportComponent>(items);
         }
 
-        public void SetHTML()
+        #endregion Constructors
+
+        #region Methods
+
+        /// <summary>
+        /// Add a ReportComponent to the end of the column.
+        /// </summary>
+        public void Add(ReportComponent component)
         {
-            Html.ClearContent();
+            _children.Add(component);
+        }
+
+        public override Tag ToHtml()
+        {
+            Tag html = new Tag("table");
+
+            // Set the table width & center it horizontally.
+            html.AddAttribute("style", $"width: {_width}; margin: 0 auto;");
 
             // Add data into the column by creating rows and stacking them on top of each other.
-            foreach (ReportComponent component in Children)
+            foreach (ReportComponent component in _children)
             {
                 // Create the html row container.
                 Tag rowContainer = new Tag("tr");
@@ -62,14 +59,15 @@ namespace Reporting.Models.ReportComponents
 
                 Tag rowData = new Tag("td");
                 rowData.AddAttribute("style", "text-align: center;");
-                rowData.AddContent(component.Html);
+                rowData.AddContent(component.ToHtml());
                 rowContainer.AddContent(rowData);
 
                 // Add the row to the table.
-                Html.AddContent(rowContainer);
+                html.AddContent(rowContainer);
             }
-        } 
+            return html;
+        }
 
-        #endregion Constructors
+        #endregion Methods
     }
 }
