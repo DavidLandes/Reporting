@@ -4,19 +4,14 @@ using System.Xml.Serialization;
 
 namespace Reporting
 {
-    class ReportParser
+    static class ReportParser
     {
         #region Fields
 
-        public readonly string ReportsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "//";
-        XmlSerializer _serializer = new XmlSerializer(typeof(Report));
+        public static readonly string ReportsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "//";
+        private static XmlSerializer _serializer = new XmlSerializer(typeof(Report));
 
         #endregion Fields
-
-        #region Properties
-
-
-        #endregion Properties
 
         #region Exceptions
 
@@ -27,21 +22,13 @@ namespace Reporting
 
         #endregion Exceptions
 
-        #region Constructors
-
-        public ReportParser()
-        {
-        }
-
-        #endregion Constructors
-
         #region Methods
 
         /// <summary>
-        /// Serialize a page into an xml format, then write to the given file.
+        /// Serialize a report into an xml format, then write to the given file.
         /// </summary>
         /// <param name="report"></param>
-        public void SerializePage(Report report, string filePath)
+        public static void SerializeReport(Report report, string filePath)
         {
             try
             {
@@ -57,10 +44,10 @@ namespace Reporting
         }
 
         /// <summary>
-        /// Deserialize a xml class from the given file and parse it into a page.
+        /// Deserialize a xml class from the given file and parse it into a report.
         /// </summary>
         /// <returns></returns>
-        public Report? DeserializePage(string filePath)
+        public static Report? DeserializeReport(string filePath)
         {
             try
             {

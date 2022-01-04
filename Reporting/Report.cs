@@ -5,11 +5,13 @@ using Reporting.Models.ReportComponents;
 
 namespace Reporting
 {
+    // TODO: Add report headers/footers. Need some to be on every page, and others to be only on first/last pages.
     [XmlInclude(typeof(Column))]
     [XmlInclude(typeof(HeadingText))]
     [XmlInclude(typeof(Row))]
     [XmlInclude(typeof(Table))]
     [XmlInclude(typeof(Text))]
+    [XmlInclude(typeof(Image))]
     public class Report
     {
 

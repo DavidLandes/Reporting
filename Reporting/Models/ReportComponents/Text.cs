@@ -33,6 +33,15 @@ namespace Reporting.Models.ReportComponents
 
         #region Methods
 
+        /// <summary>
+        /// Set the text value to be displayed.
+        /// </summary>
+        /// <param name="text"></param>
+        public void SetText(string text)
+        {
+            _text = text;
+        }
+
         public override Tag ToHtml()
         {
             Tag html = new Tag("p");
