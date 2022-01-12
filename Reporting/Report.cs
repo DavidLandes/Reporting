@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Xml.Serialization;
 using Reporting.Models.Html;
 using Reporting.Models.ReportComponents;
@@ -6,6 +7,7 @@ using Reporting.Models.ReportComponents;
 namespace Reporting
 {
     // TODO: Add report headers/footers. Need some to be on every page, and others to be only on first/last pages.
+    // TODO: Allow each ReportComponent an ID for quick reference. Ex: public ReportComponent findById(id) {} // Return a reference? or just do a delete-replace to apply changes..
     [XmlInclude(typeof(Column))]
     [XmlInclude(typeof(HeadingText))]
     [XmlInclude(typeof(Row))]
@@ -48,6 +50,96 @@ namespace Reporting
         public void Add(ReportComponent component)
         {
             _content.Add(component);
+        }
+
+        /// <summary>
+        /// Return the content ReportComponents as a list.
+        /// </summary>
+        /// <returns></returns>
+        public List<ReportComponent> Content()
+        {
+            return _content;
+        }
+
+        /// <summary>
+        /// Find a child component with the given ID & return it. Searching for null or whitespace Ids always returns null. However, whitespace in between characters is allowed.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A child component of this report, or null if the ID was not found.</returns>
+        public ReportComponent FindById(string id)
+        {
+            if (string.IsNullOrEmpty(id.Trim()))
+                return null;
+
+            // Search the content list.
+            foreach (ReportComponent child in _content)
+            {
+                ReportComponent component = FindById_Helper(id, child);
+                if (component != null)
+                    return component;
+            }
+
+            Debug.WriteLine($"Could not find a ReportComponent with id: {id}");
+            return null;
+        }
+
+        /// <summary>
+        /// Recursive helper method for finding a component with the given ID. Pre-order traversal.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private ReportComponent FindById_Helper(string id, ReportComponent node)
+        {
+            // Is this the one?
+            if (node.Id.Equals(id))
+            {
+                return node;
+            }
+
+            // Check the child nodes..
+            if (node.ChildComponents().Count > 0)
+            {
+                foreach (ReportComponent child in node.ChildComponents())
+                {
+                    ReportComponent match = FindById_Helper(id, child);
+                    if (match != null)
+                        return match;
+                    else
+                        continue;
+                }
+            }
+
+            // Base Case. Nothing found.
+            return null;
+        }
+
+        /// <summary>
+        /// Return a list of all ReportComponent ID strings.
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetIds()
+        {
+            return GetIds_Helper(_content);
+        }
+
+        /// <summary>
+        /// Recursive helper for GetIds().  
+        /// </summary>
+        /// <param name="componentList"></param>
+        /// <returns>A list of all Ids.</returns>
+        private List<string> GetIds_Helper(List<ReportComponent> componentList)
+        {
+            List<string> ids = new List<string>();
+
+            // Search the content list.
+            foreach (ReportComponent child in componentList)
+            {
+                if (!string.IsNullOrEmpty(child.Id.Trim()))
+                    ids.Add(child.Id);
+                if (child.ChildComponents().Count > 0)
+                    ids.AddRange(GetIds_Helper(child.ChildComponents()));
+            }
+            return ids;
         }
 
         /// <summary>

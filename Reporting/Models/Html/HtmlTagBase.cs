@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Xml.Serialization;
 
@@ -61,7 +62,7 @@ namespace Reporting.Models.Html
                 }
                 // This is not a style attribute & cannot contain multiple values.
                 else { 
-                    Console.WriteLine($"Error: Tried to add duplicate attribute \'{attribute}\' on tag \'{_tag}\'");
+                    Debug.WriteLine($"Error: Tried to add duplicate attribute \'{attribute}\' on tag \'{_tag}\'");
                     return;
                 }
             }
@@ -123,7 +124,7 @@ namespace Reporting.Models.Html
                     if (!matchFound)
                         joinedProperties += $" {newStyleProperties.ElementAt(x)};";
                     else
-                        Console.WriteLine($"Warning: Tried to add duplicate style property \'{newProp}\' on tag \'{_tag}\'");
+                        Debug.WriteLine($"Warning: Tried to add duplicate style property \'{newProp}\' on tag \'{_tag}\'");
                 }
                 // Update the new value to the current style.
                 _attributes.Remove("style");

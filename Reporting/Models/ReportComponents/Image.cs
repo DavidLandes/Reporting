@@ -52,14 +52,13 @@ namespace Reporting.Models.ReportComponents
         /// <param name="source"></param>
         public void SetSource(string source)
         {
-            // TODO: we check that the file exists, but do not check the file type.. this will need to be a valid image format for html.
             if (!File.Exists(source))
             {
                 throw new FileNotFoundException($"Tried to create an Image with an invalid source: {source}");
             }
             else
             {
-                _imageSource = "file:///" + source;
+                _imageSource = source;
             }
         }
 
@@ -75,7 +74,7 @@ namespace Reporting.Models.ReportComponents
         public override Tag ToHtml()
         {
             Tag html = new Tag("img");
-            html.AddAttribute("src", _imageSource);
+            html.AddAttribute("src", "file:///" + _imageSource);
             html.AddAttribute("alt", _alternateText);
 
             // If height/width are not defined, the image will be displayed as its actual size.

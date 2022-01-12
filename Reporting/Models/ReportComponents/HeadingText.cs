@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using Reporting.Models.Html;
 
 namespace Reporting.Models.ReportComponents
@@ -7,7 +9,7 @@ namespace Reporting.Models.ReportComponents
     {
         #region Fields
 
-        public string _text;
+        public string _value;
         private int _size;
 
         #endregion Fields
@@ -19,7 +21,7 @@ namespace Reporting.Models.ReportComponents
         /// </summary>
         public HeadingText()
         {
-            _text = "";
+            _value = "";
             _size = 1;
         }
 
@@ -46,7 +48,7 @@ namespace Reporting.Models.ReportComponents
         {
             if (size < 1 || size > 6)
             {
-                Console.WriteLine($"HeaderText size \'{size}\' invalid. Must be a valid html heading size (1-6). Defaulting to <h1>");
+                Debug.WriteLine($"HeaderText size \'{size}\' invalid. Must be a valid html heading size (1-6). Defaulting to <h1>");
                 _size = 1;
             }
             else
@@ -60,13 +62,13 @@ namespace Reporting.Models.ReportComponents
         /// </summary>
         public void SetText(string text)
         {
-            _text = text;
+            _value = text;
         }
 
         public override Tag ToHtml()
         {
             Tag html = new Tag($"h{_size}");
-            html.AddContent(_text);
+            html.AddContent(_value);
             return html;
         }
 

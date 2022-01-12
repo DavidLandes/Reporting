@@ -6,7 +6,7 @@ namespace Reporting.Models.ReportComponents
     {
         #region Fields
 
-        public string _text;
+        public string _value;
 
         #endregion Fields
 
@@ -17,7 +17,7 @@ namespace Reporting.Models.ReportComponents
         /// </summary>
         public Text()
         {
-            _text = "";
+            _value = "";
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace Reporting.Models.ReportComponents
         /// <param name="text"></param>
         public Text(string text)
         {
-            _text = text;
+            _value = text;
         }
 
         #endregion Constructors
@@ -39,13 +39,13 @@ namespace Reporting.Models.ReportComponents
         /// <param name="text"></param>
         public void SetText(string text)
         {
-            _text = text;
+            _value = text;
         }
 
         public override Tag ToHtml()
         {
             Tag html = new Tag("p");
-            html.AddContent(_text);
+            html.AddContent(_value);
             return html;
         }
 

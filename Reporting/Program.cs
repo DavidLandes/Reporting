@@ -16,13 +16,13 @@ namespace Reporting
             // Creating a custom report template...
             Report report = new Report();
 
-            Table t = new Table();
-            HeadingText title = new HeadingText();
-            Text address = new Text();
-            Text phone = new Text();
-            Image im = new Image();
-            Column co = new Column(title, address, phone);
-            Row roo = new Row(co, im);
+            Table t = new Table();                          t.Id = "coolTable";
+            HeadingText title = new HeadingText();          title.Id = "heading";
+            Text address = new Text();                      address.Id = "addr";
+            Text phone = new Text();                        phone.Id = "phone#";
+            Image im = new Image();                         im.Id = "icon";
+            Column co = new Column(title, address, phone);  co.Id = "contentColumn";
+            Row roo = new Row(co, im);                      roo.Id ="contentRow";
             report.Add(roo);
             report.Add(t);
 
@@ -36,26 +36,26 @@ namespace Reporting
 
 
             // Add data to template report...
-            (((p._content[0] as Row)._children[0] as Column)._children[0] as HeadingText).SetText("Bowman and Landes Turkeys, Inc.");
-            (((p._content[0] as Row)._children[0] as Column)._children[1] as Text).SetText("6490 Ross Rd, New Carlisle, OH 45344");
-            (((p._content[0] as Row)._children[0] as Column)._children[2] as Text).SetText("(937) 845-9466");
+            (p.FindById("heading") as HeadingText).SetText("Bowman and Landes Turkeys, Inc.");
+            (p.FindById("addr") as Text).SetText("6490 Ross Rd, New Carlisle, OH 45344");
+            (p.FindById("phone#") as Text).SetText("(937) 845-9466");
 
-            ((p._content[0] as Row)._children[1] as Image).SetSource(ICON_PATH);
-            ((p._content[0] as Row)._children[1] as Image).SetSize("100px", "100px");
+            (p.FindById("icon") as Image).SetSource(ICON_PATH);
+            (p.FindById("icon") as Image).SetSize("100px", "100px");
 
-            (p._content[1] as Table).SetHeaderRow("ProductID", "Weight", "Quantity");
+            (p.FindById("coolTable") as Table).SetHeaderRow("ProductID", "Weight", "Quantity");
 
             // Generating some test data for the table...
             for (int i = 0; i < 25; i++)
             {
                 Random r = new Random();
-                (p._content[1] as Table).AddRow(r.Next(610, 627).ToString(), Math.Round((r.NextDouble() * 100.0), 2).ToString(), r.Next(1, 5).ToString());
+                (p.FindById("coolTable") as Table).AddRow(r.Next(610, 627).ToString(), Math.Round((r.NextDouble() * 100.0), 2).ToString(), r.Next(1, 5).ToString());
             }
 
 
             // Writing the complete report to an html file...
             string OUT_FILE = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\test-report.html";
-            Console.WriteLine($"writing {OUT_FILE}");
+            Debug.WriteLine($"writing {OUT_FILE}");
             File.WriteAllText(OUT_FILE, p.ToString());
         }
     }

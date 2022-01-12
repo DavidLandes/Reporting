@@ -8,7 +8,6 @@ namespace Reporting.Models.ReportComponents
         #region Fields
 
         private string _width = "100%";
-        public List<ReportComponent> _children;
 
         #endregion Fields
 
