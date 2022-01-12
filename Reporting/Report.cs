@@ -7,7 +7,6 @@ using Reporting.Models.ReportComponents;
 namespace Reporting
 {
     // TODO: Add report headers/footers. Need some to be on every page, and others to be only on first/last pages.
-    // TODO: Allow each ReportComponent an ID for quick reference. Ex: public ReportComponent findById(id) {} // Return a reference? or just do a delete-replace to apply changes..
     [XmlInclude(typeof(Column))]
     [XmlInclude(typeof(HeadingText))]
     [XmlInclude(typeof(Row))]
