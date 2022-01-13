@@ -33,7 +33,7 @@ namespace Reporting.Models.ReportComponents
         public HeadingText(string text, int headingSize)
         {
             SetText(text);
-            SetSize(headingSize);
+            SetHeadingSize(headingSize);
         }
 
         #endregion Constructors
@@ -44,7 +44,7 @@ namespace Reporting.Models.ReportComponents
         /// Set the heading font size. Valid sizes correspond to html guidelines, a number 1-6.
         /// </summary>
         /// <param name="size"></param>
-        public void SetSize(int size)
+        public void SetHeadingSize(int size)
         {
             if (size < 1 || size > 6)
             {
@@ -68,6 +68,12 @@ namespace Reporting.Models.ReportComponents
         public override Tag ToHtml()
         {
             Tag html = new Tag($"h{_size}");
+
+            if (!string.IsNullOrEmpty(Height))
+                html.AddAttribute("height", Height);
+            if (!string.IsNullOrEmpty(Width))
+                html.AddAttribute("width", Width);
+
             html.AddContent(_value);
             return html;
         }

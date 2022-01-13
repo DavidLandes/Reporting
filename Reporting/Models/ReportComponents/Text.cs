@@ -45,6 +45,13 @@ namespace Reporting.Models.ReportComponents
         public override Tag ToHtml()
         {
             Tag html = new Tag("p");
+
+            // Set size.
+            if (!string.IsNullOrEmpty(Height))
+                html.AddAttribute("height", Height);
+            if (!string.IsNullOrEmpty(Width))
+                html.AddAttribute("width", Width);
+
             html.AddContent(_value);
             return html;
         }

@@ -7,7 +7,6 @@ namespace Reporting.Models.ReportComponents
     {
         #region Fields
 
-        private string _width = "100%";
 
         #endregion Fields
 
@@ -46,8 +45,13 @@ namespace Reporting.Models.ReportComponents
         {
             Tag html = new Tag("table");
 
-            // Set the table width & center it horizontally.
-            html.AddAttribute("style", $"width: {_width}; margin: 0 auto;");
+            // Set the table size & center it horizontally.
+            if (!string.IsNullOrEmpty(Height))
+                html.AddAttribute("height", Height);
+            if (!string.IsNullOrEmpty(Width))
+                html.AddAttribute("width", Width);
+
+            html.AddAttribute("style", $"margin: 0 auto;");
 
             // Add data into the column by creating rows and stacking them on top of each other.
             foreach (ReportComponent component in _children)

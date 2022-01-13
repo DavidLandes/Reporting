@@ -9,8 +9,6 @@ namespace Reporting.Models.ReportComponents
 
         public string _imageSource = "";
         public string _alternateText = "Image";
-        public string _height = "";
-        public string _width = "";
 
         #endregion Fields
 
@@ -36,15 +34,6 @@ namespace Reporting.Models.ReportComponents
         #endregion Constructors
 
         #region Methods
-
-        /// <summary>
-        /// Set the height and width of the image, using html size format. Ex: "100px", "15%", etc..
-        /// </summary>
-        public void SetSize(string height, string width)
-        {
-            _height = height;
-            _width = width;
-        }
 
         /// <summary>
         /// Set the filepath to this image.
@@ -78,10 +67,10 @@ namespace Reporting.Models.ReportComponents
             html.AddAttribute("alt", _alternateText);
 
             // If height/width are not defined, the image will be displayed as its actual size.
-            if (!string.IsNullOrEmpty(_height))
-                html.AddAttribute("height", _height);
-            if (!string.IsNullOrEmpty(_width))
-                html.AddAttribute("width", _width);
+            if (!string.IsNullOrEmpty(Height))
+                html.AddAttribute("height", Height);
+            if (!string.IsNullOrEmpty(Width))
+                html.AddAttribute("width", Width);
 
             return html;
         }

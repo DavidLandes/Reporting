@@ -80,7 +80,13 @@ namespace Reporting.Models.ReportComponents
         {
             Tag html = new Tag("table");
             // Style the table.
-            html.AddAttribute("style", $"border-collapse: collapse; width: {_width}; margin: 0 auto;");
+            html.AddAttribute("style", $"border-collapse: collapse; margin: 0 auto;");
+
+            // Set size.
+            if (!string.IsNullOrEmpty(Height))
+                html.AddAttribute("height", Height);
+            if (!string.IsNullOrEmpty(Width))
+                html.AddAttribute("width", Width);
 
             // Add all the content.
             html.AddContent(GetHeaderHtml());
@@ -97,7 +103,7 @@ namespace Reporting.Models.ReportComponents
         private Tag GetHeaderHtml()
         {
             Tag row = new Tag("tr");
-            row.AddAttribute("style", $"height: {_rowHeight}; width: {_width}; border-bottom: 2px solid black;");
+            row.AddAttribute("style", $"height: {_rowHeight}; width: 100%; border-bottom: 2px solid black;");
             foreach (string title in _columnHeaders)
             {
                 // Create header tags & add them to the row.
@@ -114,7 +120,7 @@ namespace Reporting.Models.ReportComponents
         private Tag GetRowHtml(List<string> values)
         {
             Tag row = new Tag("tr");
-            row.AddAttribute("style", $"height: {_rowHeight};");
+            row.AddAttribute("style", $"height: {_rowHeight}; width: 100%;");
             foreach (string value in values)
             {
                 // Create data tags & add them to the row.
