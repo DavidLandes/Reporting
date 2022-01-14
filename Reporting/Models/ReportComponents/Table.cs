@@ -9,7 +9,6 @@ namespace Reporting.Models.ReportComponents
 
         public List<string> _columnHeaders;
         public List<List<string>> _data;
-        public string _width = "90%";
         public string _rowHeight = "40px";
 
         #endregion Fields
