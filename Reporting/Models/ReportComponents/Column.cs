@@ -46,9 +46,9 @@ namespace Reporting.Models.ReportComponents
             Tag html = new Tag("table");
 
             // Set the table size & center it horizontally.
-            if (!string.IsNullOrEmpty(Height))
+            if (!string.IsNullOrWhiteSpace(Height))
                 html.AddAttribute("height", Height);
-            if (!string.IsNullOrEmpty(Width))
+            if (!string.IsNullOrWhiteSpace(Width))
                 html.AddAttribute("width", Width);
 
             html.AddAttribute("style", $"margin: 0 auto;");

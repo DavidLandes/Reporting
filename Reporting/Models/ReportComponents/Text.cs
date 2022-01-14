@@ -47,9 +47,9 @@ namespace Reporting.Models.ReportComponents
             Tag html = new Tag("p");
 
             // Set size.
-            if (!string.IsNullOrEmpty(Height))
+            if (!string.IsNullOrWhiteSpace(Height))
                 html.AddAttribute("height", Height);
-            if (!string.IsNullOrEmpty(Width))
+            if (!string.IsNullOrWhiteSpace(Width))
                 html.AddAttribute("width", Width);
 
             html.AddContent(_value);

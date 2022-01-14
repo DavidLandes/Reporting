@@ -16,8 +16,7 @@ namespace Reporting.Models.Html
         #region Fields
 
         public string _tag = "div";
-        //public Dictionary<string, string> _attributes = new Dictionary<string, string>();
-        public HtmlAttributeList _attributes = new HtmlAttributeList();
+        public HtmlAttribute _attributes = new HtmlAttribute();
         public List<object> _content = new List<object>();
 
         #endregion Fields
@@ -137,7 +136,7 @@ namespace Reporting.Models.Html
         /// </summary>
         private string ParseAttributes()
         {
-            return _attributes.ParseAttributes();
+            return _attributes.ToString();
         }
 
         /// <summary>
@@ -165,6 +164,7 @@ namespace Reporting.Models.Html
         private string ParseHtml(HtmlTagBase root, int depth)
         {
             string attributes = root.ParseAttributes();
+            string attributeSeparator = string.IsNullOrWhiteSpace(attributes) ? "" : " ";
             string indent = GetIndent(depth);
             string contIndent = GetIndent(depth+1);
 
@@ -185,7 +185,7 @@ namespace Reporting.Models.Html
             }
 
             // Return the parsed html tag & its content.
-            return $"{indent}<{root._tag}{attributes}>" +
+            return $"{indent}<{root._tag}{attributeSeparator}{attributes}>" +
                        contentHtml + "\n" +
                    $"{indent}</{root._tag}>";
         }

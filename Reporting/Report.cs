@@ -67,7 +67,7 @@ namespace Reporting
         /// <returns>A child component of this report, or null if the ID was not found.</returns>
         public ReportComponent FindById(string id)
         {
-            if (string.IsNullOrEmpty(id.Trim()))
+            if (string.IsNullOrWhiteSpace(id))
                 return null;
 
             // Search the content list.
@@ -133,7 +133,7 @@ namespace Reporting
             // Search the content list.
             foreach (ReportComponent child in componentList)
             {
-                if (!string.IsNullOrEmpty(child.Id.Trim()))
+                if (!string.IsNullOrWhiteSpace(child.Id))
                     ids.Add(child.Id);
                 if (child.ChildComponents().Count > 0)
                     ids.AddRange(GetIds_Helper(child.ChildComponents()));

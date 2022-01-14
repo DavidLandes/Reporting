@@ -83,9 +83,9 @@ namespace Reporting.Models.ReportComponents
             html.AddAttribute("style", $"border-collapse: collapse; margin: 0 auto;");
 
             // Set size.
-            if (!string.IsNullOrEmpty(Height))
+            if (!string.IsNullOrWhiteSpace(Height))
                 html.AddAttribute("height", Height);
-            if (!string.IsNullOrEmpty(Width))
+            if (!string.IsNullOrWhiteSpace(Width))
                 html.AddAttribute("width", Width);
 
             // Add all the content.

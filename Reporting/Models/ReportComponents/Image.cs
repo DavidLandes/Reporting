@@ -67,9 +67,9 @@ namespace Reporting.Models.ReportComponents
             html.AddAttribute("alt", _alternateText);
 
             // If height/width are not defined, the image will be displayed as its actual size.
-            if (!string.IsNullOrEmpty(Height))
+            if (!string.IsNullOrWhiteSpace(Height))
                 html.AddAttribute("height", Height);
-            if (!string.IsNullOrEmpty(Width))
+            if (!string.IsNullOrWhiteSpace(Width))
                 html.AddAttribute("width", Width);
 
             return html;
