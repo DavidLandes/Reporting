@@ -4,6 +4,9 @@ using System.Xml.Serialization;
 
 namespace Reporting
 {
+    /// <summary>
+    /// Serializes & De-serializes Report objects. Allows Reports or Report templates to be saved in a file & reloaded into an application instance when necessary.
+    /// </summary>
     static class ReportParser
     {
         #region Fields

@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace Reporting.Models.Html
 {
+    /// <summary>
+    /// Stores key-value pairs of HTML tag attributes & their corresponding value. Ex: width="50px".
+    /// </summary>
     public class HtmlAttributes : Dict
     {
         #region Methods

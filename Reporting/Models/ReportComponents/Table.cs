@@ -3,6 +3,9 @@ using Reporting.Models.Html;
 
 namespace Reporting.Models.ReportComponents
 {
+    /// <summary>
+    /// Display data in a table format in a report.
+    /// </summary>
     public class Table : ReportComponent
     {
         #region Fields

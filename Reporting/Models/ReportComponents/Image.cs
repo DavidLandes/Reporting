@@ -3,6 +3,9 @@ using System.IO;
 
 namespace Reporting.Models.ReportComponents
 {
+    /// <summary>
+    /// Load an image file into a report.
+    /// </summary>
     public class Image : ReportComponent
     {
         #region Fields

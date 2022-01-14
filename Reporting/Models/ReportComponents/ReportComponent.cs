@@ -4,6 +4,9 @@ using System.Diagnostics;
 
 namespace Reporting.Models.ReportComponents
 {
+    /// <summary>
+    /// Base class that describes html blocks that can be converted into single components used in a generic report. ReportComponents can generate all the HTML required to display the component in a report.
+    /// </summary>
     public abstract class ReportComponent
     {
         #region Fields

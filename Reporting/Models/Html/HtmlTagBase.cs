@@ -9,7 +9,9 @@ namespace Reporting.Models.Html
     /*  HTML terms:
      *  <tag attribute="property" attribute="property: value;"></tag>
      */
-
+    /// <summary>
+    /// Manages all the components required to build an HTML tag.
+    /// </summary>
     [XmlInclude(typeof(Tag))]
     public class HtmlTagBase
     {
@@ -24,6 +26,9 @@ namespace Reporting.Models.Html
 
         #region Constructors
 
+        /// <summary>
+        /// Default Constructor.
+        /// </summary>
         public HtmlTagBase()
         {
 
@@ -155,20 +160,11 @@ namespace Reporting.Models.Html
                    $"{indent}</{root._tag}>";
         }
 
-        /// <summary>
-        /// Represents this html tag as a string.
-        /// </summary>
-        /// <returns>This tag as an html tree</returns>
         public override string ToString()
         {
             return ParseHtml(this, 0);
         }
 
-        /// <summary>
-        /// Compare another tag to this one to determine if they have the same value.
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (!(obj is HtmlTagBase))

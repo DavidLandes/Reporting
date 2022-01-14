@@ -2,6 +2,9 @@
 
 namespace Reporting.Models.ReportComponents
 {
+    /// <summary>
+    /// Container to hold text and display it in a report.
+    /// </summary>
     public class Text : ReportComponent
     {
         #region Fields

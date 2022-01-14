@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Reporting.Models.Html
 {
+    /// <summary>
+    /// Stores key-value pairs of HTML style attributes & their corresponding values. Ex: position: absolute; color: black;
+    /// </summary>
     public class StyleAttributes : Dict
     {
         #region Methods

@@ -21,6 +21,9 @@ namespace Reporting.Models
 
         #region Properties
 
+        /// <summary>
+        /// Gets the number of key-value pairs in the Dict.
+        /// </summary>
         public int Length
         {
             get => _length;

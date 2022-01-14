@@ -7,6 +7,9 @@ using Reporting.Models.ReportComponents;
 namespace Reporting
 {
     // TODO: Add report headers/footers. Need some to be on every page, and others to be only on first/last pages.
+    /// <summary>
+    /// Gives ReportComponents structure and generates HTML for a report. Can be serialized into files with ReportParser.
+    /// </summary>
     [XmlInclude(typeof(Column))]
     [XmlInclude(typeof(HeadingText))]
     [XmlInclude(typeof(Row))]
@@ -24,6 +27,9 @@ namespace Reporting
 
         #region Constructors
 
+        /// <summary>
+        /// Default Constructor.
+        /// </summary>
         public Report()
         {
             _content = new List<ReportComponent>();

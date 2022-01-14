@@ -5,6 +5,9 @@ using Reporting.Models.Html;
 
 namespace Reporting.Models.ReportComponents
 {
+    /// <summary>
+    /// Container to hold Heading text. Font can be set to one of the six HTML heading sizes.
+    /// </summary>
     public class HeadingText : ReportComponent
     {
         #region Fields

@@ -3,6 +3,9 @@ using Reporting.Models.Html;
 
 namespace Reporting.Models.ReportComponents
 {
+    /// <summary>
+    /// Container to hold ReportComponents in a single column.
+    /// </summary>
     public class Column : ReportComponent
     {
         #region Fields
