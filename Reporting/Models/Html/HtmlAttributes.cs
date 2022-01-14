@@ -3,12 +3,12 @@ using System.Linq;
 
 namespace Reporting.Models.Html
 {
-    public class HtmlAttribute : Dict
+    public class HtmlAttributes : Dict
     {
         #region Methods
 
         /// <summary>
-        /// Parse the key-values into an html attribute string.
+        /// Parse the key-values into an html attribute string. No attributes means an empty string is returned.
         /// </summary>
         private string ParseAttributes()
         {

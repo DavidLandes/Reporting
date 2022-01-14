@@ -51,17 +51,17 @@ namespace Reporting.Models.ReportComponents
             if (!string.IsNullOrWhiteSpace(Width))
                 html.AddAttribute("width", Width);
 
-            html.AddAttribute("style", $"margin: 0 auto;");
+            html.AddStyle("margin", $"0 auto");
 
             // Add data into the column by creating rows and stacking them on top of each other.
             foreach (ReportComponent component in _children)
             {
                 // Create the html row container.
                 Tag rowContainer = new Tag("tr");
-                rowContainer.AddAttribute("style", $"width: 100%;");
+                rowContainer.AddAttribute("width", $"100%");
 
                 Tag rowData = new Tag("td");
-                rowData.AddAttribute("style", "text-align: center;");
+                rowData.AddStyle("text-align", "center");
                 rowData.AddContent(component.ToHtml());
                 rowContainer.AddContent(rowData);
 

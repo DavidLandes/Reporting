@@ -52,17 +52,17 @@ namespace Reporting.Models.ReportComponents
             if (!string.IsNullOrWhiteSpace(Width))
                 html.AddAttribute("width", Width);
 
-            html.AddAttribute("style", $"margin: 0 auto;");
+            html.AddStyle("margin", $"0 auto");
 
             // Create the html row container.
             Tag rowContainer = new Tag("tr");
-            rowContainer.AddAttribute("style", $"width: 100%;");
+            rowContainer.AddAttribute("width", $"100%");
 
             // Add data into the row.
             foreach (ReportComponent component in _children)
             {
                 Tag rowData = new Tag("td");
-                rowData.AddAttribute("style", "text-align: center;");
+                rowData.AddStyle("text-align", "center");
                 rowData.AddContent(component.ToHtml());
                 rowContainer.AddContent(rowData);
             }
