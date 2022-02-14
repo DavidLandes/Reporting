@@ -50,7 +50,7 @@ namespace Reporting
         /// Deserialize a xml class from the given file and parse it into a report.
         /// </summary>
         /// <returns></returns>
-        public static Report? DeserializeReport(string filePath)
+        public static Report DeserializeReport(string filePath)
         {
             try
             {
